@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <title>Hidup Jokowi | Tap Tap Game</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        user-select: none;
+        text-align: center;
+        font-family: 'Plus Jakarta Sans';
+    }
+    body{
+        /* background-image: url("assets/prabowojokowi.jpeg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center; */
+        width: 100%;
+        height: 100dvh;
+        position: relative;
+        overflow: hidden;
+    }
+    .container{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-height: 100dvh;
+        width: 100%;
+        z-index: 999;
+        padding: 0 2rem;
+        box-sizing: border-box;
+    }
+    .site-background{
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        height: 100dvh;
+        z-index: 100;
+    }
+    .site-title{
+        color: white;
+        text-shadow:
+   2px  0   0 black,
+  -2px  0   0 black,
+   0    2px 0 black,
+   0   -2px 0 black,
+   1px  1px 0 black,
+  -1px -1px 0 black,
+   1px -1px 0 black,
+  -1px  1px 0 black;
+        margin-top: 2.5rem;
+        font-size: 3rem;
+    }
+    .counter-display{
+        font-size: 15rem;
+        color: white;
+        text-shadow:
+   2px  0   0 black,
+  -2px  0   0 black,
+   0    2px 0 black,
+   0   -2px 0 black,
+   1px  1px 0 black,
+  -1px -1px 0 black,
+   1px -1px 0 black,
+  -1px  1px 0 black;
+        margin-top: 1rem;
+        max-width: 100%;
+    }
+    .container:active .counter-display{
+        transform: scale(1.2);
+    }
+    .shake-hard {
+      animation: shake 0.2s infinite;
+      filter: blur(0.5px); /* Motion blur simulasi */
+    }
+
+    @keyframes shake {
+      0%   { transform: translate(0px, 0px) rotate(0deg); }
+      10%  { transform: translate(-2px, -2px) rotate(-1deg); }
+      20%  { transform: translate(2px, -2px) rotate(1deg); }
+      30%  { transform: translate(-2px, 2px) rotate(1deg); }
+      40%  { transform: translate(2px, 2px) rotate(-1deg); }
+      50%  { transform: translate(-2px, -2px) rotate(0deg); }
+      60%  { transform: translate(2px, -2px) rotate(1deg); }
+      70%  { transform: translate(-2px, 2px) rotate(-1deg); }
+      80%  { transform: translate(2px, 2px) rotate(1deg); }
+      90%  { transform: translate(-1px, -1px) rotate(-1deg); }
+      100% { transform: translate(0px, 0px) rotate(0deg); }
+    }
+
+    @media screen and (max-width: 768px) {
+        @keyframes shake {
+            0%   { transform: translate(-20%, 0px) rotate(0deg); }
+            10%  { transform: translate(calc(-20% + -2px), -2px) rotate(-1deg); }
+            20%  { transform: translate(calc(-20% + 2px), -2px) rotate(1deg); }
+            30%  { transform: translate(calc(-20% + -2px), 2px) rotate(1deg); }
+            40%  { transform: translate(calc(-20% + 2px), 2px) rotate(-1deg); }
+            50%  { transform: translate(calc(-20% + -2px), -2px) rotate(0deg); }
+            60%  { transform: translate(calc(-20% + 2px), -2px) rotate(1deg); }
+            70%  { transform: translate(calc(-20% + -2px), 2px) rotate(-1deg); }
+            80%  { transform: translate(calc(-20% + 2px), 2px) rotate(1deg); }
+            90%  { transform: translate(calc(-20% + -1px), -1px) rotate(-1deg); }
+            100% { transform: translate(-20%, 0px) rotate(0deg); }
+        }
+        .site-background{
+            transform: translateX(-20%);
+        }
+        .shake-hard {
+            animation: shake 0.2s infinite;
+            filter: blur(0.5px); /* Motion blur simulasi */
+            transform: translateX(-20%) scale(1.3);
+        }
+    }
+
+    @media screen and (max-width: 496px) {
+        @keyframes shake {
+            0%   { transform: translate(-30%, 0px) rotate(0deg); }
+            10%  { transform: translate(calc(-30% + -2px), -2px) rotate(-1deg); }
+            20%  { transform: translate(calc(-30% + 2px), -2px) rotate(1deg); }
+            30%  { transform: translate(calc(-30% + -2px), 2px) rotate(1deg); }
+            40%  { transform: translate(calc(-30% + 2px), 2px) rotate(-1deg); }
+            50%  { transform: translate(calc(-30% + -2px), -2px) rotate(0deg); }
+            60%  { transform: translate(calc(-30% + 2px), -2px) rotate(1deg); }
+            70%  { transform: translate(calc(-30% + -2px), 2px) rotate(-1deg); }
+            80%  { transform: translate(calc(-30% + 2px), 2px) rotate(1deg); }
+            90%  { transform: translate(calc(-30% + -1px), -1px) rotate(-1deg); }
+            100% { transform: translate(-30%, 0px) rotate(0deg); }
+        }
+        .site-background{
+            transform: translateX(-30%);
+        }
+        .shake-hard {
+            animation: shake 0.2s infinite;
+            filter: blur(0.5px); /* Motion blur simulasi */
+            transform: translateX(-30%) scale(1.3);
+        }
+    }
+
+    .sound-pitch-changer{
+        width: min(90%, 500px);
+        position: absolute;
+        top: 90%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+        padding: .6rem;
+        outline: none;
+        color: black;
+        border-radius: .4rem;
+        font-weight: bold;
+        text-align: left !important;
+    }
+    .speed-control{
+        width: min(90%, 500px);
+        height: 1rem;
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+    }
+    .speed-control {
+  -webkit-appearance: none; /* hilangkan tampilan default */
+  background: #ddd;
+  border-radius: 3px;
+  outline: none;
+}
+
+/* Track (jalur slider) */
+.speed-control::-webkit-slider-runnable-track {
+  background: #ffcc00; /* warna jalur */
+  height: 1rem;
+  border-radius: 5px;
+}
+.speed-control::-moz-range-track {
+  background: #ffcc00;
+  height: 32px;
+  border-radius: 5px;
+}
+
+/* Thumb (tombol geser) */
+.speed-control::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 32px;
+  background: white; /* warna tombol geser */
+  cursor: pointer;
+  margin-top: -0.5rem; /* supaya pas di tengah track */
+}
+.speed-control::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #2196F3;
+  border-radius: 50%;
+  cursor: pointer;
+}
+</style>
+<body>
+    <div class="container">
+        <h1 class="site-title">HIDUP JOKOWI</h1>
+        <p style="color: white; text-shadow:
+   2px  0   0 black,
+  -2px  0   0 black,
+   0    2px 0 black,
+   0   -2px 0 black,
+   1px  1px 0 black,
+  -1px -1px 0 black,
+   1px -1px 0 black,
+  -1px  1px 0 black;">DRX-NRG Presents</p>
+        <span class="counter-display">0</span>
+        <audio id="hidupjokowi" src="assets/pilih-efek-(original).mp3" autoplay muted></audio>
+    </div>
+    <div style="width: 100%; height: 100dvh; overflow: hidden; position: relative;">
+        <img src="assets/prabowojokowi.jpeg" alt="" class="site-background">
+        <input type="range" name="playbackRate" class="speed-control" id="speedControl" min="0" step="0.1" max="2">
+        <select name="sound_filter" id="soundPitch" class="sound-pitch-changer">
+            
+        </select>
+    </div>
+    <script>
+        let counter = 0;
+        let playbackRate = 1;
+
+        const soundsMap = [
+            "scp-69.wav",
+            "efek-suara-boraks.wav",
+            "tersedak.wav",
+            "perokok-berat.wav",
+            "perokok-pemula.wav",
+            "batuk-bpjs.wav",
+            "pejuang-democrazy.wav",
+            "pilih-efek-(original).mp3",
+            "pejuang-suara-rakyat.wav",
+            "indonesia-cerah.wav",
+            "swasembada-pangans.wav",
+            "siswa-barak-militer.wav",
+            "gemoy-MBG.wav",
+            "gemoy-ultra-full-bansos.wav",
+        ];
+
+        const options = [];
+        for(itemName of soundsMap)
+        {
+            options.push(`<option value='${itemName}'>${itemName.split(".")[0].split("-").join(" ").replace(/\b\w/g, char => char.toUpperCase())}</option>`)
+        }
+
+        document.getElementById('soundPitch').innerHTML = options.join("")
+        document.getElementById('soundPitch').value = "pilih-efek-(original).mp3"
+
+        document.getElementById('speedControl').onchange = (e) => {
+            e.stopPropagation()
+            playbackRate = e.target.value
+        }
+
+        document.getElementById('soundPitch').onchange = (e) => {
+            const hidupjokowisound = document.getElementById('hidupjokowi');
+            hidupjokowisound.src = `assets/${e.target.value}`;
+        }
+
+        function playJokowi()
+        {
+            const hidupjokowisound = document.getElementById('hidupjokowi') 
+            hidupjokowisound.muted = false;
+            hidupjokowisound.currentTime = 0.4
+            hidupjokowisound.playbackRate = playbackRate
+            hidupjokowisound.play();
+            counter++;
+
+            if(window.innerWidth <= 600)
+            {
+                if(counter >= 100 && counter < 1000)
+                {
+                    document.querySelector('.counter-display').style.fontSize = "8rem"
+                }
+                else if(counter >= 1000)
+                {
+                    document.querySelector('.counter-display').style.fontSize = "6rem"
+                }
+                else if(counter >= 100000)
+                {
+                    document.querySelector('.counter-display').style.fontSize = "1rem"
+                    document.querySelector('.counter-display').style.whiteSpace = "normal"
+                    document.querySelector('.counter-display').style.overflowWrap = "break-word"
+                }else
+                {
+                    document.querySelector('.counter-display').style.fontSize = "10rem"
+                }
+            }else
+            {
+                document.querySelector('.counter-display').style.fontSize = "15rem"
+            }
+
+            document.querySelector('.counter-display').textContent = counter;
+        }
+
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        window.addEventListener('keydown', function(e){
+            if(e.key === ' ') {
+                playJokowi()
+                document.querySelector('.counter-display').style.transform = "scale(1.2)"
+                document.querySelector('.site-background').classList.add("shake-hard")
+            }
+        });
+        
+        window.addEventListener('keyup', function(e){
+            if(e.key === ' ')
+            {
+                document.querySelector('.counter-display').style.transform = "scale(1)"
+                document.querySelector('.site-background').classList.remove("shake-hard")
+            }
+        });
+
+        document.querySelector('.container').addEventListener('mousedown', function(e){
+            document.querySelector('.counter-display').style.transform = "scale(1.2)"
+            document.querySelector('.site-background').classList.add("shake-hard")
+        });
+        
+        document.querySelector('.container').addEventListener('mouseup', function(e){
+            document.querySelector('.counter-display').style.transform = "scale(1)"
+            document.querySelector('.site-background').classList.remove("shake-hard")
+        });
+
+        document.querySelector('.container').addEventListener('touchstart', function(e){
+            document.querySelector('.counter-display').style.transform = "scale(1.2)"
+            document.querySelector('.site-background').classList.add("shake-hard")
+        });
+        document.querySelector('.container').addEventListener('touchend', function(e){
+            document.querySelector('.counter-display').style.transform = "scale(1)"
+            document.querySelector('.site-background').classList.remove("shake-hard")
+        });
+
+        document.querySelector('.container').addEventListener('click', function(){
+            playJokowi()
+        });
+    </script>
+</body>
+</html>
