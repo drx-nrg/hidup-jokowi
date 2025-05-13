@@ -447,9 +447,9 @@
             document.querySelector('.counter-display').textContent = counter;
         }
 
-        // document.addEventListener('contextmenu', function(e) {
-        //     e.preventDefault();
-        // });
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
         
         window.addEventListener('keydown', function(e){
             if(e.key === ' ') {
