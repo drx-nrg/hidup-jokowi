@@ -80,7 +80,7 @@
   -1px -1px 0 black,
    1px -1px 0 black,
   -1px  1px 0 black;
-        margin-top: 2.5rem;
+        margin-top: .5rem;
         font-size: 3rem;
     }
     .counter-display{
@@ -95,7 +95,7 @@
   -1px -1px 0 black,
    1px -1px 0 black,
   -1px  1px 0 black;
-        margin-top: 1rem;
+        /* margin-top: 1rem; */
         max-width: 100%;
     }
     .container:active .counter-display{
@@ -174,7 +174,7 @@
         top: 90%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: 99999;
+        z-index: 9999;
         padding: .6rem;
         outline: none;
         color: black;
@@ -182,14 +182,20 @@
         font-weight: bold;
         text-align: left !important;
     }
-    .speed-control{
+    .speed-control, .speed-info{
         width: min(90%, 500px);
         height: 1rem;
         position: absolute;
         top: 80%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: 99999;
+        z-index: 9999;
+    }
+    .speed-info{
+        top: 72%;
+        color: white;
+        opacity: 0;
+        transition: all .3s ease-in-out;
     }
     .speed-control {
   -webkit-appearance: none; /* hilangkan tampilan default */
@@ -227,9 +233,74 @@
   border-radius: 50%;
   cursor: pointer;
 }
+.site-tutorial-btn{
+    padding: .6rem .8rem; background-color: #037cdf; margin-top: 1rem; outline: none; border: none; border-radius: .4rem; color: white; display: flex; justify-content: center;
+        align-items: center; box-sizing: border-box; cursor: pointer; transition: all .3s ease-in-out;
+}
+.site-tutorial-btn:focus
+{
+    outline: 2px solid #368dd5;
+}
+.hint-tutorial{
+    width: 100%;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    inset: 0;
+    z-index: 99999;
+    transition: all .5s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+    background: rgba(0,0,0,0.6);
+    overflow: hidden;
+}
+.hint-tutorial.active{
+    opacity: 1;
+    pointer-events: auto;
+    backdrop-filter: blur(10px); /* efek blur */
+    -webkit-backdrop-filter: blur(10px); /* untuk Safari */
+}
+.hint-image-person{
+    transform: translate(0px, 500px);
+    transition: all .5s ease-in-out;
+}
+.hint-tutorial.active .hint-image-person{
+    transform: translate(0px, 0px);
+    width: 400px;
+}
+.hint-text{
+    width: min(400px, 90%);
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+.hint-text__continue{
+    color:#2196F3;
+    margin-top: 1rem;
+    cursor: pointer;
+}
 </style>
 <body>
+    <div class="hint-tutorial">
+        <div class="hint-text">
+            <span class="hint-text__main-text"></span>
+            <span role="button" id="nextHintBtn" class="hint-text__continue">Teruskan &raquo;</span>
+        </div>
+        <img src="assets/jokowidodo-ganteng.png" alt="" class="hint-image-person">
+    </div>
     <div class="container">
+        <button class="site-tutorial-btn" id="siteTutorialBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+</svg>
+        </button>
         <h1 class="site-title">HIDUP JOKOWI</h1>
         <p style="color: white; text-shadow:
    2px  0   0 black,
@@ -246,9 +317,8 @@
     <div style="width: 100%; height: 100dvh; overflow: hidden; position: relative;">
         <img src="assets/prabowojokowi.jpeg" alt="" class="site-background">
         <input type="range" name="playbackRate" class="speed-control" id="speedControl" min="0" step="0.1" max="2">
-        <select name="sound_filter" id="soundPitch" class="sound-pitch-changer">
-            
-        </select>
+        <span class="speed-info" id="speedInfo">0.25x Speed</span>
+        <select name="sound_filter" id="soundPitch" class="sound-pitch-changer"></select>
     </div>
     <script>
         let counter = 0;
@@ -280,14 +350,65 @@
         document.getElementById('soundPitch').innerHTML = options.join("")
         document.getElementById('soundPitch').value = "pilih-efek-(original).mp3"
 
+        let timeoutInfo = null;
         document.getElementById('speedControl').onchange = (e) => {
             e.stopPropagation()
+            if(timeoutInfo !== null) clearTimeout(timeoutInfo);
             playbackRate = e.target.value
+            document.getElementById('speedInfo').textContent =  `${e.target.value}x Speed`;
+            document.getElementById('speedInfo').style.opacity = 1;
+            timeoutInfo = setTimeout(() => {
+                document.getElementById('speedInfo').style.opacity = 0;
+            }, 1000);
         }
 
         document.getElementById('soundPitch').onchange = (e) => {
             const hidupjokowisound = document.getElementById('hidupjokowi');
             hidupjokowisound.src = `assets/${e.target.value}`;
+        }
+
+        let tutorialHintsIndex = 0;
+        const tutorialHints = [
+            "Terima kasih sudah memainkan game ini rakyatku!",
+            "Untuk cara bermain game ini sebenarnya sangat mudah, tinggal klik layar saja supaya counter bertambah",
+            "Bar kuning digunakan untuk mengatur kecepatan suara Pak Prabowo yang merupakan matahari saya",
+            "Anda juga bisa menentukan efek yang ingin anda terapkan pada suara Pak Prabowo",
+            "Selanjutnya, Dev Bima Ganteng sudah bilang ke saya bahwa akan update terbaru selama beberapa hari kedepan",
+            "Nantinya akan ada Unlocked Plot Twist, Badge, serta DLC-DLC tokoh-tokoh penting lain, contohnya seperti Gus Miftah yang merupakan tokoh inspiratif dari Pulau Jawa. Oh iya saya juga akan hadir tentu saja😎",
+            "Intinya tetap semangat jalani hidup, dan jangan mengingkari apa yang anda janjikan pada diri anda sendiri",
+            "We walk the talk, not only talk the talk",
+            "Sudah dulu ya saya mau pergi ke Solo",
+        ]
+        document.getElementById('nextHintBtn').addEventListener('click', function(){
+            tutorialHintsIndex++;
+            if(tutorialHintsIndex === tutorialHints.length) {
+                document.querySelector('.hint-tutorial').classList.remove('active')
+                tutorialHintsIndex = 0;
+                return;
+            }
+            typeWriterEffect(tutorialHints[tutorialHintsIndex], document.querySelector('.hint-text__main-text'))
+        });
+        
+        document.getElementById('siteTutorialBtn').addEventListener('click', function(e){
+            e.stopPropagation()
+            document.querySelector('.hint-tutorial').classList.add('active')
+            if(tutorialHintsIndex === 0) typeWriterEffect(tutorialHints[tutorialHintsIndex], document.querySelector('.hint-text__main-text'))
+        });
+
+
+        function typeWriterEffect(text = "Ini teks asli", element, duration = 20)
+        {
+            element.innerHTML = "";
+            const chars = text.split("");
+            let index = 0;
+            const intervalID = setInterval(() => {
+                element.innerHTML += chars[index];
+                index++;
+                if(index === chars.length) {
+                    element.innerHTML = text;
+                    clearInterval(intervalID)
+                }
+            }, duration)
         }
 
         function playJokowi()
@@ -326,9 +447,9 @@
             document.querySelector('.counter-display').textContent = counter;
         }
 
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
+        // document.addEventListener('contextmenu', function(e) {
+        //     e.preventDefault();
+        // });
         
         window.addEventListener('keydown', function(e){
             if(e.key === ' ') {
